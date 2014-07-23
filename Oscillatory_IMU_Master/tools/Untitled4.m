@@ -1,0 +1,26 @@
+fs   = 51.2; 
+N    = 1024; 
+n    = 0 : N-1; 
+t    = n/fs;  
+x    = 0.5 - 0.5 * sign(t-1); 
+Y    = fft(x,N); 
+mag  = abs(Y); 
+Y1   = fftshift(Y); 
+mag1 = abs(Y1);  
+fn2  = (-N/10.24:N/10.24)*fs/N; 
+subplot(2,1,1); 
+plot(fn2,mag1((N/2-N/10.24+1):(N/2+N/10.24+1)));
+set(gca,'XTick',(-5:0.5:5)); 
+set(gca,'YTick',(0:10:60)); 
+xlabel('频率/Hz');ylabel('振幅');  
+title('图1：矩形函数的FFT结果，N=512，fs=51.2Hz'); 
+grid on;  
+f=linspace(-5,5,1000); 
+y=sqrt(2-2*cos(2*pi*f))./abs((2*pi*f)); 
+subplot(2,1,2);
+plot(f,y);  
+set(gca,'XTick',(-5:0.5:5)); 
+set(gca,'YTick',(0:0.2:1)); 
+xlabel('频率/Hz');ylabel('振幅');  
+title('图2：矩形函数傅里叶变换的理论结果'); 
+grid on 
